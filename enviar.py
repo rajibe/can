@@ -44,11 +44,6 @@ def send_deal(texto,freq):
     get_t = get_rec.split(",")
 
     offset_frequence = int(get_t[1])-(850 if int(get_t[1])>850 else 410)
-    #
-    # the sending message format
-    #
-    #         receiving node              receiving node                   receiving node           own high 8bit           own low 8bit                 own 
-    #         high 8bit address           low 8bit address                    frequency                address                 address                  frequency             message payload
     data = bytes([int(get_t[0])>>8]) + bytes([int(get_t[0])&0xff]) + bytes([offset_frequence]) + bytes([node.addr>>8]) + bytes([node.addr&0xff]) + bytes([node.offset_freq]) + get_t[2].encode()
 
     node.send(data)
